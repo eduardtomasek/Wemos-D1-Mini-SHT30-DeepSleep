@@ -27,7 +27,7 @@ void mqttSetup () {
       } else {
           Serial.print("failed with state ");
           Serial.print(client.state());
-          delay(200);
+          delay(1000);
       }
   }
 }
