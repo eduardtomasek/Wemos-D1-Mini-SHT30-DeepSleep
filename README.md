@@ -13,7 +13,7 @@ Found in comments under this video https://www.youtube.com/watch?v=IYuYTfO6iOs
 
 When you use static values for ip, subnet, gateway, dns, ap address you do not need negotiate with your AP, do some scans and you can save some time.
 
-Code examle:
+Code example:
 ```cpp
 char ssid[] = "yourSSID";    // your network SSID (name)
 char pass[] = "yourPassword"; // your network password (use for WPA, or use as key for WEP)
