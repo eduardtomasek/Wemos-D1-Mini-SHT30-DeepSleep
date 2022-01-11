@@ -1,6 +1,12 @@
 # Wemos-D1-Mini-SHT30-DeepSleep [SundayProjects]
 
-Deep sleep test template for "Wemos D1 Mini", "SHT30" and "Deep sleep mode" for saving energy. Code every period publish temperature and humidity via MQTT.
+Deep sleep test template for "Wemos D1 Mini" and "SHT30" for saving energy. Code every period publish temperature and humidity via MQTT.
+
+# Setup
+Pin ```D0``` and ```RST``` must be connected for proper ```Deep Sleep``` function work.
+
+![wemosd1miniwiring](./docs/images/wemosd1miniwiring.jpg "Deep Sleep Wiring")
+
 
 # Possible Optimization
 Found in comments under this video https://www.youtube.com/watch?v=IYuYTfO6iOs
