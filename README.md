@@ -1,6 +1,6 @@
 # Wemos-D1-Mini-SHT30-DeepSleep [SundayProjects]
 
-Deep sleep test template for "Wemos D1 Mini" and "SHT30" for saving energy. Code every period publish temperature and humidity via MQTT.
+Deep sleep test template for "Wemos D1 Mini" and "SHT30" for saving energy. Code every period publish temperature and humidity via MQTT and directly into InfluxDBv2.
 
 # Setup
 Pin ```D0``` and ```RST``` must be connected for proper ```Deep Sleep``` function work.
@@ -77,6 +77,16 @@ const char *mqtt_password = "<mqtt password>";
 const int mqtt_port = 1883;
 ```
 
+For InfluxDbv2 part
+````cpp
+#define INFLUXDB_URL "http://<address>:8086"
+#define INFLUXDB_TOKEN "<token>"
+#define INFLUXDB_ORG "<organization>"
+#define INFLUXDB_BUCKET "<bucket>"
+
+// InfluxDbv2 UI will generate one for (CET-1CEST,M3.5.0,M10.5.0/3)
+#define TZ_INFO "<tzinfo>"
+```
 # Sources
 https://www.youtube.com/watch?v=IYuYTfO6iOs
 

@@ -1,11 +1,50 @@
 #include <Arduino.h>
 
-#include <ESP8266WiFi.h>
+#include <ESP8266WiFi.h> // for sending data into influxdb via post request
 #include <WiFiClient.h>
 
 #include "credentials.h"
 
 #define DEEP_SLEEP_ONE_SECOND 1000000
+
+/**
+ * INFLUXDB 2
+ */
+#include <InfluxDbClient.h>
+#include <InfluxDbCloud.h>
+
+InfluxDBClient influxClient(INFLUXDB_URL, INFLUXDB_ORG, INFLUXDB_BUCKET, INFLUXDB_TOKEN, InfluxDbCloud2CACert);
+Point sensor("weather_status");
+
+void influxSetup () {
+    timeSync(TZ_INFO, "pool.ntp.org", "time.nis.gov");
+
+    sensor.addTag("device", "esp8266");
+
+    if (influxClient.validateConnection()) {
+        Serial.print("Connected to InfluxDB: ");
+        Serial.println(influxClient.getServerUrl());
+    } else {
+        Serial.print("InfluxDB connection failed: ");
+        Serial.println(influxClient.getLastErrorMessage());
+    }
+}
+
+void influxWrite(float temperature, float humidity) {
+    sensor.clearFields();
+
+    sensor.addField("temperature", temperature);
+    sensor.addField("humidity", humidity);
+
+    Serial.print("Writing: ");
+    Serial.println(sensor.toLineProtocol());
+
+    if (!influxClient.writePoint(sensor)) {
+        Serial.print("InfluxDB write failed: ");
+        Serial.println(influxClient.getLastErrorMessage());
+    }
+}
+
 
 /**
  * MQTT
@@ -51,7 +90,10 @@ void readAndSendValues () {
         client.publish(topic_humidity, humidity);
 
         Serial.printf("Values sent %.2f %.2f \n", sht30.cTemp, sht30.humidity);
-        delay(100); // let mqtt publish finish its work
+
+        influxWrite(sht30.cTemp, sht30.humidity);
+
+        delay(100); // let influx and mqtt publish finish its work
     }
 }
  
