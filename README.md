@@ -78,7 +78,7 @@ const int mqtt_port = 1883;
 ```
 
 For InfluxDbv2 part
-````cpp
+```cpp
 #define INFLUXDB_URL "http://<address>:8086"
 #define INFLUXDB_TOKEN "<token>"
 #define INFLUXDB_ORG "<organization>"
@@ -87,6 +87,7 @@ For InfluxDbv2 part
 // InfluxDbv2 UI will generate one for (CET-1CEST,M3.5.0,M10.5.0/3)
 #define TZ_INFO "<tzinfo>"
 ```
+
 # Sources
 https://www.youtube.com/watch?v=IYuYTfO6iOs
 
